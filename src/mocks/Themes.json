@@ -1,0 +1,26 @@
+[
+  {
+    "themeTitle": "Electro",
+    "themePreviewUrl": "https://themewagon.github.io/electro/",
+    "themeThumbnail": "https://ik.imagekit.io/13x54r/Zetsy/electro.jpg?updatedAt=1701292960906",
+    "tags": ["electronics"]
+  },
+  {
+    "themeTitle": "Furni",
+    "themePreviewUrl": "https://themewagon.github.io/furni/",
+    "themeThumbnail": "https://ik.imagekit.io/13x54r/Zetsy/furni.png?updatedAt=1701293606059",
+    "tags": ["furniture"]
+  },
+  {
+    "themeTitle": "Ashion",
+    "themePreviewUrl": "https://themewagon.github.io/ashion/index.html",
+    "themeThumbnail": "https://ik.imagekit.io/13x54r/Zetsy/Ashion.png?updatedAt=1701293732410",
+    "tags": ["clothing"]
+  },
+  {
+    "themeTitle": "Coza Store",
+    "themePreviewUrl": "https://themewagon.github.io/cozastore/",
+    "themeThumbnail": "https://themewagon.com/wp-content/uploads/2018/09/Coza-Store-Free-HTML5-eCommerce-Website-Template-1.jpg",
+    "tags": ["clothing"]
+  }
+]
