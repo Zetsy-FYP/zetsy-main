@@ -12,7 +12,6 @@ export default function Dashboard() {
   const [activePage, setActivePage] = useState("home");
 
   const user = auth.currentUser;
-  console.log(user);
 
   return (
     <main className="flex flex-row align-top">
@@ -49,7 +48,7 @@ export default function Dashboard() {
               className="bg-black text-white px-3"
               onClick={() => setOpen(true)}
             >
-              {user.displayName.split(" ")[0]}
+              {user.email.split("@")[0]}
             </button>
           </div>
         </div>
