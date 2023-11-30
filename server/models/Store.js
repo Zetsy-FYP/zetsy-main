@@ -17,10 +17,13 @@ const StoreSchema = new Schema({
   //     type: Schema.Types.ObjectId,
   //     ref: 'Payment',
   // },
-  users: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
+  storeUrl: String,
+  users: [
+    {
+      uid: String,
+      ref: 'User'
+    },
+  ],
 });
 
 module.exports = mongoose.model("Store", StoreSchema);
