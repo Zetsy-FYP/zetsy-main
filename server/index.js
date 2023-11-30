@@ -7,8 +7,9 @@ const mongoose = require("mongoose");
 const UserRouter = require("./routes/User");
 const StoreRouter = require("./routes/Store");
 
-const uri =
-  "mongodb+srv://13x54r:Q2FZ1F64mO2NK7O3@zetsy.fy8g5nx.mongodb.net/?retryWrites=true&w=majority";
+// const uri =
+//   "mongodb+srv://13x54r:Q2FZ1F64mO2NK7O3@zetsy.fy8g5nx.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb://localhost:27017/zetsy-main"
 mongoose.connect(uri);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));

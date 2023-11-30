@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const StoreSchema = new Schema({
   storeName: String,
+  
   // products: [
   //     {
   //         type: Schema.Types.ObjectId,
