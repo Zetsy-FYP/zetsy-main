@@ -1,0 +1,38 @@
+[
+    {
+      "name": "🏠 Home",
+      "icon": "ri-home-fill",
+      "actionName": "",
+      "path": "home"
+    },
+    {
+      "name": "📃 Orders",
+      "icon": "ri-inbox-2-fill",
+      "actionName": "orders",
+      "path": "orders"
+    },
+    {
+      "name": "📦 Products",
+      "icon": "ri-price-tag-3-fill",
+      "actionName": "products",
+      "path": "products"
+    },
+    {
+      "name": "🧑🏽 Users",
+      "icon": "ri-user-3-fill",
+      "actionName": "users",
+      "path": "users"
+    },
+    {
+      "name": "💶 Payments",
+      "icon": "ri-user-3-fill",
+      "actionName": "users",
+      "path": "payments"
+    },
+    {
+      "name": "🪛 Settings",
+      "icon": "ri-settings-3-fill",
+      "actionName": "settings",
+      "path": "settings"
+    }
+  ]
