@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { createContext } from "react";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 
 export const AuthContext = createContext();

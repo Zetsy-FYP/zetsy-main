@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+// const Schema = mongoose.Schema;
+const { Schema } = mongoose
 
 const UserSchema = new Schema({
   userUid: {
@@ -11,6 +12,7 @@ const UserSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Store",
+      unique:true
     },
   ],
 });

@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { auth } from "../../firebase";
 import Landing from "../pages/Landing";

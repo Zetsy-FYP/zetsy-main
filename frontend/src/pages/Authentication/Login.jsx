@@ -5,23 +5,25 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        toast("Logged in successfully!");
-        navigate("/dashboard")
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    if (email !== "" && password !== "") {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          toast("Logged in successfully!");
+          navigate("/dashboard");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
+    }
   };
 
   return (
@@ -62,7 +64,7 @@ export default function Login() {
         </button>
 
         <p>
-          Don't have an account? <Link to="/auth/register">Register</Link>
+          Don&apos;t have an account? <Link to="/auth/register">Register</Link>
         </p>
       </form>
     </div>

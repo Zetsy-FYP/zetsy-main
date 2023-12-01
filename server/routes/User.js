@@ -26,25 +26,34 @@ UserRouter.post("/", async (req, res) => {
   }
 });
 
-UserRouter.put("/:uid", async (req, res) => {
+UserRouter.patch("/:uid", async (req, res) => {
   try {
     const user = await User.findOne({
-      userUid: req.params.uid,
+      _id: req.params.uid,
     });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (req.body.email) {
-      user.email = req.body.email;
-    }
-    if (req.body.store) {
-      user.stores = [...user.stores, req.body.store];
+   const userFound =  await User.findByIdAndUpdate(req.params.uid,{
+    // addToSet adds the unique id reference of store in the user model
+      $addToSet: {stores:req.body.store}
+    })
+
+    if(!userFound){
+      throw new Error("failed to find user and update")
     }
 
-    const updatedUser = await user.save();
-    res.status(200).json(updatedUser);
+    // if (req.body.email) {
+    //   user.email = req.body.email;
+    // }
+    // if (req.body.store) {
+    //   user.stores = [...user.stores, req.body.store];
+    // }
+
+    // const updatedUser = await user.save();
+    res.status(200).json(userFound);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -58,5 +67,14 @@ UserRouter.delete("/:uid", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+UserRouter.get("/",async (req,res) => {
+  try{
+    const Users = await User.find({}).populate("stores").exec()
+    res.status(200).send(Users)
+  }catch(error){
+    res.status(400).send(error)
+  }
+})
 
 module.exports = UserRouter;

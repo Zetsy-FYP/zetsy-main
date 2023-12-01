@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -10,10 +11,10 @@ export default function Layout({ children }) {
   return user ? (
     <Navigate to="/dashboard" />
   ) : (
-    <>
+    <div className="grid min-h-screen grid-rows-[auto_1fr_auto]  ">
       <Navbar />
       <main className="my-8 mx-[5vw] mb-10">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }

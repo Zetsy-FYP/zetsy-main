@@ -12,7 +12,7 @@ export default function Register() {
   const handleUserRegistration = (e) => {
     e.preventDefault();
 
-    if (password === confirmPassword) {
+    if (password === confirmPassword && email !== "" && password !== "") {
       createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
           toast("User Registered Successfully!");

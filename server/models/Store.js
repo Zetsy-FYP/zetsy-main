@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+// const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const StoreSchema = new Schema({
   storeName: String,
+  
   // products: [
   //     {
   //         type: Schema.Types.ObjectId,
@@ -20,8 +22,8 @@ const StoreSchema = new Schema({
   storeUrl: String,
   users: [
     {
-      uid: String,
-      ref: 'User'
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   ],
 });
