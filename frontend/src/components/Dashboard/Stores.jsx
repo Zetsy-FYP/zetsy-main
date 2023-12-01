@@ -1,13 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import StoresMock from "../../mocks/Stores.json";
+import NewStoreModal from "./NewStoreModal";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Stores({ selected, setSelected }) {
+  const [open, setOpen] = useState(false)
+
+  const handleNewStoreModal = () => {
+    setOpen(true)
+  }
+
   return (
     <div className="px-5 py-2">
       <Listbox value={selected} onChange={setSelected}>
@@ -44,46 +51,21 @@ export default function Stores({ selected, setSelected }) {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  <Listbox.Option
-                    className={({ active }) =>
-                      classNames(
-                        active ? "bg-indigo-600 text-white" : "text-gray-900",
-                        "relative cursor-default select-none py-2 pl-3 pr-9"
-                      )
-                    }
-                    //   value={store}
-                  >
-                    {({ selected, active }) => (
-                      <>
-                        <div className="flex items-center">
-                          <img
-                            src="https://pngimg.com/d/plus_PNG42.png"
-                            alt=""
-                            className="h-5 w-5 flex-shrink-0 rounded-full"
-                          />
-                          <span
-                            className={classNames(
-                              selected ? "font-semibold" : "font-normal",
-                              "ml-3 block truncate"
-                            )}
-                          >
-                            Add new store
-                          </span>
-                        </div>
-
-                        {selected ? (
-                          <span
-                            className={classNames(
-                              active ? "text-white" : "text-indigo-600",
-                              "absolute inset-y-0 right-0 flex items-center pr-4"
-                            )}
-                          >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
-                  </Listbox.Option>
+                    <div onClick={() => handleNewStoreModal()} className="flex items-center py-2 px-3 cursor-pointer">
+                      <img
+                        src="https://pngimg.com/d/plus_PNG42.png"
+                        alt=""
+                        className="h-5 w-5 flex-shrink-0 rounded-full"
+                      />
+                      <span
+                        className={classNames(
+                          selected ? "font-semibold" : "font-normal",
+                          "ml-3 block truncate"
+                        )}
+                      >
+                        Add new store
+                      </span>
+                    </div>
 
                   {StoresMock.map((store) => (
                     <Listbox.Option
@@ -137,6 +119,7 @@ export default function Stores({ selected, setSelected }) {
           </>
         )}
       </Listbox>
+      <NewStoreModal open={open} setOpen={setOpen}/>
     </div>
   );
 }
