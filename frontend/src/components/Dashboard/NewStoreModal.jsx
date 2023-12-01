@@ -1,21 +1,51 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { FileUploader } from "react-drag-drop-files";
+import { auth } from "../../../firebase";
 
 const fileTypes = ["JPG", "PNG", "WEBP"];
 
 export default function NewStoreModal({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
-  const [storeName, setStorename] = useState("")
+  const [storeName, setStorename] = useState("");
   const [file, setFile] = useState(null);
-  
-  const handleFileChange = (file) => {
+  const user = auth.currentUser;
+
+  const handleFileChange = async (file) => {
     setFile(file);
   };
 
-  const handleNewStore = () => {
+  const handleNewStore = async () => {
+    const formData = new FormData();
+    formData.append("storeName", storeName);
+    formData.append("storeLogo", file);
+    formData.append("user", user.uid);
 
-  }
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/store`, {
+        method: "POST",
+        body: formData,
+      });
+      // @dev must be added to dispatch
+      
+      // this is the sample response
+      //   {
+      //     "storeName": "ThriftMyOutfit",
+      //     "storeUrl": "thriftmyoutfit-xo9y8",
+      //     "storeLogoUrl": "https://ik.imagekit.io/13x54r/storeLogo-1701466648080-951902975_ZIn3g44jb.webp",
+      //     "users": [
+      //         {
+      //             "user": "pHQf9xl3aSSKLRF2c6VXPODf8623",
+      //             "_id": "656a5218ed8e3b4b11e62bef"
+      //         }
+      //     ],
+      //     "_id": "656a5218ed8e3b4b11e62bee",
+      //     "__v": 0
+      // }
+    } catch (error) {
+      // Handle any errors
+    }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -51,10 +81,20 @@ export default function NewStoreModal({ open, setOpen }) {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 flex flex-col gap-2">
                   <label className="text-sm font-medium">Store Logo</label>
-                  <FileUploader handleChange={handleFileChange} name="file" types={fileTypes} />
+                  <FileUploader
+                    handleChange={handleFileChange}
+                    name="file"
+                    types={fileTypes}
+                  />
 
                   <label className="text-sm font-medium">Store Name</label>
-                  <input value={storeName} setStorename={setStorename} type="text" placeholder="Zetsy" className="border text-sm p-2"/>
+                  <input
+                    value={storeName}
+                    onChange={(e) => setStorename(e.target.value)}
+                    type="text"
+                    placeholder="Zetsy"
+                    className="border text-sm p-2"
+                  />
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
