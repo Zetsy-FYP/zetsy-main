@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const StoreSchema = new Schema({
   storeName: String,
-  
+
   // products: [
   //     {
   //         type: Schema.Types.ObjectId,
@@ -20,10 +20,13 @@ const StoreSchema = new Schema({
   //     ref: 'Payment',
   // },
   storeUrl: String,
+  storeLogoUrl: String,
   users: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+      user: {
+        type: String,
+        ref: "User",
+      },
     },
   ],
 });

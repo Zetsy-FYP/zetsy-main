@@ -6,11 +6,14 @@ import "./index.css";
 import React from "react";
 import Router from "./utils/Router";
 import AuthProvider from "./contexts/Auth";
+import { StoreProvider } from "./contexts/Store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <AuthProvider>
-      <Router />
+      <StoreProvider>
+        <Router />
+      </StoreProvider>
     </AuthProvider>
     <ToastContainer />
   </>

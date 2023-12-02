@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../contexts/Auth";
 
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {user, setUser} = useContext(AuthContext)
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ export default function Login() {
         .then((userCredential) => {
           toast("Logged in successfully!");
           navigate("/dashboard");
-          // ...
+          setUser(userCredential.user)
         })
         .catch((error) => {
           const errorCode = error.code;
