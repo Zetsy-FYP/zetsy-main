@@ -6,16 +6,27 @@ const fs = require("fs");
 
 const StoreRouter = require("express").Router();
 
-StoreRouter.get('/:userId', async (req, res) => {
+StoreRouter.get("/one/:id", async (req, res) => {
+  try {
+    const stores = await Store.find({ _id: req.params.id });
+    if (!stores) return res.status(404).send("Store not found!");
+
+    res.status(200).json(stores);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+StoreRouter.get("/:userId", async (req, res) => {
   const userId = req.params.userId;
 
   try {
-    const stores = await Store.find({ 'users.user': { $in: [userId] } });
+    const stores = await Store.find({ "users.user": { $in: [userId] } });
 
     res.json(stores);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

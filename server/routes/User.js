@@ -1,6 +1,28 @@
+const { default: mongoose } = require("mongoose");
 const User = require("../models/User");
+const { asyncHandler } = require("../utils/Asynchandler");
+const Store = require("../models/Store");
 
 const UserRouter = require("express").Router();
+
+UserRouter.get(
+  "/store/:id",
+  asyncHandler(async (req, res) => {
+    const store = await Store.findOne({_id: req.params.id})
+    
+    const {users} = store;
+
+    var completeUserData = [];
+    
+    for (let i = 0; i < users.length; i++) {
+      const user = await User.findOne({ userUid: users[i].user });
+      if (!user) continue;
+      completeUserData.push(user);
+    }
+
+    res.status(200).json(completeUserData);
+  })
+);
 
 UserRouter.get("/:uid", async (req, res) => {
   try {
@@ -29,30 +51,25 @@ UserRouter.post("/", async (req, res) => {
 UserRouter.patch("/:uid", async (req, res) => {
   try {
     const user = await User.findOne({
-      _id: req.params.uid,
+      userUid: req.params.uid,
     });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-   const userFound =  await User.findByIdAndUpdate(req.params.uid,{
-    // addToSet adds the unique id reference of store in the user model
-      $addToSet: {stores:req.body.store}
-    })
+    const userFound = await User.findOneAndUpdate(
+      { userUid: req.params.uid },
+      {
+        $set: {
+          stores: [...user.stores, req.body.store],
+        },
+      }
+    );
 
-    if(!userFound){
-      throw new Error("failed to find user and update")
+    if (!userFound) {
+      throw new Error("failed to find user and update");
     }
-
-    // if (req.body.email) {
-    //   user.email = req.body.email;
-    // }
-    // if (req.body.store) {
-    //   user.stores = [...user.stores, req.body.store];
-    // }
-
-    // const updatedUser = await user.save();
     res.status(200).json(userFound);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -68,13 +85,13 @@ UserRouter.delete("/:uid", async (req, res) => {
   }
 });
 
-UserRouter.get("/",async (req,res) => {
-  try{
-    const Users = await User.find({}).populate("stores").exec()
-    res.status(200).send(Users)
-  }catch(error){
-    res.status(400).send(error)
+UserRouter.get("/", async (req, res) => {
+  try {
+    const Users = await User.find({}).populate("stores").exec();
+    res.status(200).send(Users);
+  } catch (error) {
+    res.status(400).send(error);
   }
-})
+});
 
 module.exports = UserRouter;

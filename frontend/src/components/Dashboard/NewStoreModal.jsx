@@ -1,7 +1,9 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { FileUploader } from "react-drag-drop-files";
 import { auth } from "../../../firebase";
+import { StoreContext } from "../../contexts/Store";
+import { toast } from "react-toastify";
 
 const fileTypes = ["JPG", "PNG", "WEBP"];
 
@@ -10,6 +12,7 @@ export default function NewStoreModal({ open, setOpen }) {
   const [storeName, setStorename] = useState("");
   const [file, setFile] = useState(null);
   const user = auth.currentUser;
+  const { stores, dispatch } = useContext(StoreContext);
 
   const handleFileChange = async (file) => {
     setFile(file);
@@ -27,28 +30,18 @@ export default function NewStoreModal({ open, setOpen }) {
         body: formData,
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
           console.log(data);
+          dispatch({
+            type: "ADD_STORE",
+            payload: data,
+          });
+          toast("Store Added Successfully!");
+          setStorename(""), setFile(null);
         })
         .catch((err) => console.log(err));
-      // @dev must be added to dispatch
-
-      // this is the sample response
-      //   {
-      //     "storeName": "ThriftMyOutfit",
-      //     "storeUrl": "thriftmyoutfit-xo9y8",
-      //     "storeLogoUrl": "https://ik.imagekit.io/13x54r/storeLogo-1701466648080-951902975_ZIn3g44jb.webp",
-      //     "users": [
-      //         {
-      //             "user": "pHQf9xl3aSSKLRF2c6VXPODf8623",
-      //             "_id": "656a5218ed8e3b4b11e62bef"
-      //         }
-      //     ],
-      //     "_id": "656a5218ed8e3b4b11e62bee",
-      //     "__v": 0
-      // }
     } catch (error) {
-      // Handle any errors
+      console.log(error);
     }
   };
 

@@ -66,7 +66,7 @@ export default function UserHandle({open, setOpen}) {
                       </Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      <p>{user.displayName}</p>
+                      <button>Go to profile</button>
                       <p>{user.email}</p>
                       <button className='bg-black text-white px-3 mt-3' onClick={() => {handleSignOut()}}>Sign Out</button>
                     </div>

@@ -1,35 +1,30 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import StoresMock from "../../mocks/Stores.json";
 import NewStoreModal from "./NewStoreModal";
 import { StoreContext } from "../../contexts/Store";
-import { auth } from "../../../firebase";
+import { StoreUsersContext } from "../../contexts/StoreUsers";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Stores({ selected, setSelected }) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const { stores } = useContext(StoreContext);
+  const {storeusers, dispatch} = useContext(StoreUsersContext)
 
   const handleNewStoreModal = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
-  // useEffect(() => {
-  //   async function fetchStores() {
-  //     try {
-  //       const response = await fetch(`/stores/${auth.currentUser.uid}`);
-  //       const data = await response.json();
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+  useEffect(() => {
+    dispatch({
+      type: "SET_ACTIVE_STORE",
+      payload: selected,
+    });
+  }, [selected]);
 
-  //   fetchStores();
-  // }, []);
 
   return (
     <div className="px-5 py-2">
@@ -67,32 +62,35 @@ export default function Stores({ selected, setSelected }) {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    <div onClick={() => handleNewStoreModal()} className="flex items-center py-2 px-3 cursor-pointer">
-                      <img
-                        src="https://pngimg.com/d/plus_PNG42.png"
-                        alt=""
-                        className="h-5 w-5 flex-shrink-0 rounded-full"
-                      />
-                      <span
-                        className={classNames(
-                          selected ? "font-semibold" : "font-normal",
-                          "ml-3 block truncate"
-                        )}
-                      >
-                        Add new store
-                      </span>
-                    </div>
+                  <div
+                    onClick={() => handleNewStoreModal()}
+                    className="flex items-center py-2 px-3 cursor-pointer"
+                  >
+                    <img
+                      src="https://pngimg.com/d/plus_PNG42.png"
+                      alt=""
+                      className="h-5 w-5 flex-shrink-0 rounded-full"
+                    />
+                    <span
+                      className={classNames(
+                        selected ? "font-semibold" : "font-normal",
+                        "ml-3 block truncate"
+                      )}
+                    >
+                      Add new store
+                    </span>
+                  </div>
 
-                  {StoresMock.map((store) => (
+                  {stores[0] && stores[0].map((store, index) => (
                     <Listbox.Option
-                      key={store._id}
-                      className={({ active }) =>
-                        classNames(
-                          active ? "bg-indigo-600 text-white" : "text-gray-900",
-                          "relative cursor-default select-none py-2 pl-3 pr-9"
-                        )
-                      }
-                      value={store}
+                    key={index}
+                    className={({ active }) =>
+                    classNames(
+                      active ? "bg-indigo-600 text-white" : "text-gray-900",
+                      "relative cursor-default select-none py-2 pl-3 pr-9"
+                      )
+                    }
+                    value={store}
                     >
                       {({ selected, active }) => (
                         <>
@@ -135,7 +133,7 @@ export default function Stores({ selected, setSelected }) {
           </>
         )}
       </Listbox>
-      <NewStoreModal open={open} setOpen={setOpen}/>
+      <NewStoreModal open={open} setOpen={setOpen} />
     </div>
   );
 }
