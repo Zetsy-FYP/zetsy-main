@@ -6,12 +6,16 @@ const fs = require("fs");
 
 const StoreRouter = require("express").Router();
 
-StoreRouter.get("/:id", async (req, res) => {
+StoreRouter.get('/:userId', async (req, res) => {
+  const userId = req.params.userId;
+
   try {
-    const store = await Store.findOne({ _id: req.params.id });
-    res.status(201).send(store);
-  } catch (error) {
-    res.status(400).send(error);
+    const stores = await Store.find({ 'users.user': { $in: [userId] } });
+
+    res.json(stores);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
@@ -20,7 +24,7 @@ StoreRouter.post("/", upload.single("storeLogo"), async (req, res) => {
     const { storeName, user } = req.body;
 
     const random = generateRandomCombo();
-    const storeUrl = `${storeName.toLowerCase()}-${random}`;
+    const storeUrl = `${storeName.toLowerCase()}-${random}.zetsy.store`;
 
     if (req.file) {
       const data = await new Promise((resolve, reject) => {
@@ -49,7 +53,7 @@ StoreRouter.post("/", upload.single("storeLogo"), async (req, res) => {
         storeLogoUrl: imagekitResponse.url,
         users: [{ user }],
       });
-      res.status(200).send(newStore);
+      res.status(200).json(newStore);
       fs.unlinkSync(req.file.path);
     } else {
       const newStore = await Store.create({
@@ -94,15 +98,5 @@ StoreRouter.delete("/:uid", async (req, res) => {
     res.status(400).send(error);
   }
 });
-
-// router.put("/:id", async (req, res) => {
-//   try {
-//     const store = new Store(req.body);
-//     await store.save();
-//     res.status(201).send(store);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
 
 module.exports = StoreRouter;

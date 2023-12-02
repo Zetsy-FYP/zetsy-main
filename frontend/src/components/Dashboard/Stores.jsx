@@ -1,8 +1,10 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import StoresMock from "../../mocks/Stores.json";
 import NewStoreModal from "./NewStoreModal";
+import { StoreContext } from "../../contexts/Store";
+import { auth } from "../../../firebase";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,6 +16,20 @@ export default function Stores({ selected, setSelected }) {
   const handleNewStoreModal = () => {
     setOpen(true)
   }
+
+  // useEffect(() => {
+  //   async function fetchStores() {
+  //     try {
+  //       const response = await fetch(`/stores/${auth.currentUser.uid}`);
+  //       const data = await response.json();
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+
+  //   fetchStores();
+  // }, []);
 
   return (
     <div className="px-5 py-2">

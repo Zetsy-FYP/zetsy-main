@@ -22,12 +22,17 @@ export default function NewStoreModal({ open, setOpen }) {
     formData.append("user", user.uid);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/store`, {
+      fetch(`${import.meta.env.VITE_API_URL}/store`, {
         method: "POST",
         body: formData,
-      });
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => console.log(err));
       // @dev must be added to dispatch
-      
+
       // this is the sample response
       //   {
       //     "storeName": "ThriftMyOutfit",
