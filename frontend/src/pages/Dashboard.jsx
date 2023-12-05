@@ -21,11 +21,16 @@ export default function Dashboard() {
           `${import.meta.env.VITE_API_URL}/store/${auth.currentUser.uid}`
         );
         const data = await response.json();
-        dispatch({
-          type: "ADD_STORE",
-          payload: data,
-        });
-        setSelected(data[0]);
+
+        if (data.length === 0) {
+          localStorage.setItem("zetsy_store_state", false)
+        } else {
+          dispatch({
+            type: "ADD_STORE",
+            payload: data,
+          });
+          setSelected(data[0]);
+        }
       } catch (error) {
         console.log(error);
       }

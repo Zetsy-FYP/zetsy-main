@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const User = require("../models/User");
-const { asyncHandler } = require("../utils/Asynchandler");
+const { asyncHandler } = require("../utils/AsyncHandler");
 const Store = require("../models/Store");
 
 const UserRouter = require("express").Router();

@@ -12,19 +12,22 @@ function classNames(...classes) {
 export default function Stores({ selected, setSelected }) {
   const [open, setOpen] = useState(false);
   const { stores } = useContext(StoreContext);
-  const {storeusers, dispatch} = useContext(StoreUsersContext)
+  const { storeusers, dispatch } = useContext(StoreUsersContext);
 
   const handleNewStoreModal = () => {
     setOpen(true);
   };
 
   useEffect(() => {
-    dispatch({
-      type: "SET_ACTIVE_STORE",
-      payload: selected,
-    });
+    if (localStorage.getItem("zetsy_store_state")) {
+      setOpen(true);
+    } else {
+      dispatch({
+        type: "SET_ACTIVE_STORE",
+        payload: selected,
+      });
+    }
   }, [selected]);
-
 
   return (
     <div className="px-5 py-2">
@@ -81,52 +84,56 @@ export default function Stores({ selected, setSelected }) {
                     </span>
                   </div>
 
-                  {stores[0] && stores[0].map((store, index) => (
-                    <Listbox.Option
-                    key={index}
-                    className={({ active }) =>
-                    classNames(
-                      active ? "bg-indigo-600 text-white" : "text-gray-900",
-                      "relative cursor-default select-none py-2 pl-3 pr-9"
-                      )
-                    }
-                    value={store}
-                    >
-                      {({ selected, active }) => (
-                        <>
-                          <div className="flex items-center">
-                            <img
-                              src={store.storeLogoUrl}
-                              alt=""
-                              className="h-5 w-5 flex-shrink-0 rounded-full"
-                            />
-                            <span
-                              className={classNames(
-                                selected ? "font-semibold" : "font-normal",
-                                "ml-3 block truncate"
-                              )}
-                            >
-                              {store.storeName}
-                            </span>
-                          </div>
-
-                          {selected ? (
-                            <span
-                              className={classNames(
-                                active ? "text-white" : "text-indigo-600",
-                                "absolute inset-y-0 right-0 flex items-center pr-4"
-                              )}
-                            >
-                              <CheckIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
+                  {stores[0] &&
+                    stores[0].length > 0 &&
+                    stores[0].map((store, index) => (
+                      <Listbox.Option
+                        key={index}
+                        className={({ active }) =>
+                          classNames(
+                            active
+                              ? "bg-indigo-600 text-white"
+                              : "text-gray-900",
+                            "relative cursor-default select-none py-2 pl-3 pr-9"
+                          )
+                        }
+                        value={store}
+                      >
+                        {({ selected, active }) => (
+                          <>
+                            <div className="flex items-center">
+                              <img
+                                src={store.storeLogoUrl}
+                                alt=""
+                                className="h-5 w-5 flex-shrink-0 rounded-full"
                               />
-                            </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))}
+                              <span
+                                className={classNames(
+                                  selected ? "font-semibold" : "font-normal",
+                                  "ml-3 block truncate"
+                                )}
+                              >
+                                {store.storeName}
+                              </span>
+                            </div>
+
+                            {selected ? (
+                              <span
+                                className={classNames(
+                                  active ? "text-white" : "text-indigo-600",
+                                  "absolute inset-y-0 right-0 flex items-center pr-4"
+                                )}
+                              >
+                                <CheckIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
                 </Listbox.Options>
               </Transition>
             </div>

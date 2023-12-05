@@ -18,7 +18,8 @@ export default function NewStoreModal({ open, setOpen }) {
     setFile(file);
   };
 
-  const handleNewStore = async () => {
+  const handleNewStore = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("storeName", storeName);
     formData.append("storeLogo", file);
@@ -38,6 +39,9 @@ export default function NewStoreModal({ open, setOpen }) {
           });
           toast("Store Added Successfully!");
           setStorename(""), setFile(null);
+          setOpen(false);
+          localStorage.removeItem("zetsy_store_state")
+          window.location.reload()
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -77,40 +81,41 @@ export default function NewStoreModal({ open, setOpen }) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 flex flex-col gap-2">
-                  <label className="text-sm font-medium">Store Logo</label>
-                  <FileUploader
-                    handleChange={handleFileChange}
-                    name="file"
-                    types={fileTypes}
-                  />
+                <form onSubmit={(e) => handleNewStore(e)}>
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 flex flex-col gap-2">
+                    <label className="text-sm font-medium">Store Logo</label>
+                    <FileUploader
+                      handleChange={handleFileChange}
+                      name="file"
+                      types={fileTypes}
+                    />
 
-                  <label className="text-sm font-medium">Store Name</label>
-                  <input
-                    value={storeName}
-                    onChange={(e) => setStorename(e.target.value)}
-                    type="text"
-                    placeholder="Zetsy"
-                    className="border text-sm p-2"
-                  />
-                </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-                    onClick={() => handleNewStore()}
-                  >
-                    Create
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
-                </div>
+                    <label className="text-sm font-medium">Store Name</label>
+                    <input
+                      value={storeName}
+                      onChange={(e) => setStorename(e.target.value)}
+                      type="text"
+                      placeholder="Zetsy"
+                      className="border text-sm p-2"
+                    />
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button
+                      type="submit"
+                      className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                    >
+                      Create
+                    </button>
+                    <button
+                      type="button"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      onClick={() => setOpen(false)}
+                      ref={cancelButtonRef}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
               </Dialog.Panel>
             </Transition.Child>
           </div>

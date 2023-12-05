@@ -11,6 +11,7 @@ export default function Register() {
 
   const handleUserRegistration = (e) => {
     e.preventDefault();
+    localStorage.setItem("zetsy_store_state", false)
 
     if (password === confirmPassword && email !== "" && password !== "") {
       createUserWithEmailAndPassword(auth, email, password)
