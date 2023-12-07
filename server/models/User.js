@@ -7,14 +7,8 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
   },
-  email: String,
-  stores: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Store",
-      unique:true
-    },
-  ],
+  role: String,
+  email: String
 });
 
 module.exports = mongoose.model("User", UserSchema);

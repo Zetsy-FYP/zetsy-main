@@ -27,6 +27,7 @@ const StoreSchema = new Schema({
         type: String,
         ref: "User",
       },
+      role: String
     },
   ],
 });

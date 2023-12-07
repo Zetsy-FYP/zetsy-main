@@ -1,22 +1,48 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Stores from "../components/Dashboard/Stores";
 import Sidebars from "../mocks/Sidebar.json";
-import StoresMock from "../mocks/Stores.json";
 import DashboardRouter from "../components/Dashboard/DashboardRouter";
 import UserHandle from "../components/Dashboard/UserHandle";
 import { auth } from "../../firebase";
+import { StoreContext } from "../contexts/Store";
 
 export default function Dashboard() {
-  const [selected, setSelected] = useState(StoresMock[0]);
+  const [selected, setSelected] = useState([]);
   const [open, setOpen] = useState(false);
   const [activePage, setActivePage] = useState("home");
+  const { stores, dispatch } = useContext(StoreContext);
 
   const user = auth.currentUser;
+
+  useEffect(() => {
+    async function fetchStores() {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/store/${auth.currentUser.uid}`
+        );
+        const data = await response.json();
+
+        if (data.length === 0) {
+          localStorage.setItem("zetsy_store_state", false)
+        } else {
+          dispatch({
+            type: "ADD_STORE",
+            payload: data,
+          });
+          setSelected(data[0]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchStores();
+  }, []);
 
   return (
     <main className="flex flex-row align-top">
       <div className="w-[18vw] border-r-2 h-[96vh]">
-        <Stores selected={selected} setSelected={setSelected} />
+        {selected && <Stores selected={selected} setSelected={setSelected} />}
 
         <div className="mt-3 px-5 py-2 navigationLinks flex flex-col align-top justify-start border-t-2">
           <p className="block text-sm font-medium leading-6 text-gray-900">
