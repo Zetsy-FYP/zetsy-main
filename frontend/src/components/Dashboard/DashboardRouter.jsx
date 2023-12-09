@@ -1,10 +1,10 @@
 import React from "react";
-import DHome from "./pages/DHome";
-import DOrders from "./pages/DOrders";
-import DProducts from "./pages/DProducts";
-import DUsers from "./pages/DUsers";
-import DPayments from "./pages/DPayments";
-import DSettings from "./pages/DSettings";
+import DHome from "../../pages/Dashboard/DHome";
+import DOrders from "../../pages/Dashboard/DOrders";
+import DProducts from "../../pages/Dashboard/DProducts";
+import DUsers from "../../pages/Dashboard/DUsers";
+import DPayments from "../../pages/Dashboard/DPayments";
+import DSettings from "../../pages/Dashboard/DSettings";
 
 export default function DashboardRouter({ activePage }) {
   const Layout = ({ component: Component }) => {

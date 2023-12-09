@@ -66,7 +66,7 @@ export default function Dashboard() {
           <div>Zetsy</div>
           <div className="flex flex-row gap-2">
             <button
-              onClick={() => window.open("https://zetsy.store", "_blank")}
+              onClick={() => window.open(`https://${selected.storeUrl}`, "_blank")}
             >
               Go to your site
             </button>

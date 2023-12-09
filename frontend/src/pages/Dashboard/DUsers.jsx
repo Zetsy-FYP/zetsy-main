@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { StoreUsersContext } from "../../../contexts/StoreUsers";
+import { StoreUsersContext } from "../../contexts/StoreUsers";
 
 export default function DUsers() {
   const { storeUsers, dispatch } = useContext(StoreUsersContext);
