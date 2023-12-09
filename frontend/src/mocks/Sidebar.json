@@ -30,6 +30,18 @@
       "path": "users"
     },
     {
+      "name": "🔌 Plugins",
+      "icon": "ri-user-3-fill",
+      "actionName": "plugins",
+      "path": "plugins"
+    },
+    {
+      "name": "🕶️ Appearance",
+      "icon": "ri-user-3-fill",
+      "actionName": "appearance",
+      "path": "appearance"
+    },
+    {
       "name": "💶 Payments",
       "icon": "ri-user-3-fill",
       "actionName": "users",

@@ -22,11 +22,25 @@ export default function DProducts() {
                 className="border px-2 py-1"
                 placeholder="Search"
               />
-              <button onClick={() => setState("addProducts")} className="bg-slate-950 text-gray-50 px-3 py-1 text-sm">
+              <button
+                onClick={() => setState("addProducts")}
+                className="bg-slate-950 text-gray-50 px-3 py-1 text-sm"
+              >
                 + Add Product
               </button>
             </div>
           </div>
+
+          <table width="100%">
+            <thead>
+              <td className="border p-1 text-sm font-medium">#</td>
+              <td className="border p-1 text-sm font-medium">Name</td>
+              <td className="border p-1 text-sm font-medium">Price</td>
+              <td className="border p-1 text-sm font-medium">Inventory</td>
+              <td className="border p-1 text-sm font-medium">Created At</td>
+              <td className="border p-1 text-sm font-medium">Actions</td>
+            </thead>
+          </table>
         </>
       )}
 
