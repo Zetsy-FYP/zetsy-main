@@ -21,7 +21,7 @@ MyStatefulEditor.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default function NewProduct() {
+export default function NewProduct({setState}) {
   const [value, setValue] = useState(RichTextEditor.createEmptyValue());
   const [file, setFile] = useState(null);
 
@@ -36,7 +36,7 @@ export default function NewProduct() {
     <div>
       <div className="flex flex-row align-middle justify-between">
         <div className="flex flex-row gap-1">
-          <button className="bg-gray-800 text-white px-3">back</button>
+          <button onClick={() => setState("displayProducts")} className="bg-gray-800 text-white px-3">back</button>
           <p>Add Product</p>
         </div>
         <button className="bg-gray-800 text-white px-3">Bulk Upload</button>

@@ -12,6 +12,12 @@
       "path": "orders"
     },
     {
+      "name": "💅🏽 Categories",
+      "icon": "ri-price-tag-3-fill",
+      "actionName": "categories",
+      "path": "categories"
+    },
+    {
       "name": "📦 Products",
       "icon": "ri-price-tag-3-fill",
       "actionName": "products",
