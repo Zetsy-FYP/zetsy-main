@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import NewProduct from "../../components/Dashboard/NewProduct";
 
 export default function DProducts() {
@@ -33,12 +33,14 @@ export default function DProducts() {
 
           <table width="100%">
             <thead>
-              <td className="border p-1 text-sm font-medium">#</td>
-              <td className="border p-1 text-sm font-medium">Name</td>
-              <td className="border p-1 text-sm font-medium">Price</td>
-              <td className="border p-1 text-sm font-medium">Inventory</td>
-              <td className="border p-1 text-sm font-medium">Created At</td>
-              <td className="border p-1 text-sm font-medium">Actions</td>
+              <tr>
+                <th className="border p-1 text-sm font-medium">#</th>
+                <th className="border p-1 text-sm font-medium">Name</th>
+                <th className="border p-1 text-sm font-medium">Price</th>
+                <th className="border p-1 text-sm font-medium">Inventory</th>
+                <th className="border p-1 text-sm font-medium">Created At</th>
+                <th className="border p-1 text-sm font-medium">Actions</th>
+              </tr>
             </thead>
           </table>
         </>
