@@ -12,6 +12,12 @@
       "path": "orders"
     },
     {
+      "name": "💅🏽 Categories",
+      "icon": "ri-price-tag-3-fill",
+      "actionName": "categories",
+      "path": "categories"
+    },
+    {
       "name": "📦 Products",
       "icon": "ri-price-tag-3-fill",
       "actionName": "products",
@@ -22,6 +28,18 @@
       "icon": "ri-user-3-fill",
       "actionName": "users",
       "path": "users"
+    },
+    {
+      "name": "🔌 Plugins",
+      "icon": "ri-user-3-fill",
+      "actionName": "plugins",
+      "path": "plugins"
+    },
+    {
+      "name": "🕶️ Appearance",
+      "icon": "ri-user-3-fill",
+      "actionName": "appearance",
+      "path": "appearance"
     },
     {
       "name": "💶 Payments",

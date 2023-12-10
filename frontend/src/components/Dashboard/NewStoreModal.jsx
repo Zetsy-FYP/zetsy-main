@@ -10,9 +10,9 @@ const fileTypes = ["JPG", "PNG", "WEBP"];
 export default function NewStoreModal({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
   const [storeName, setStorename] = useState("");
-  const [file, setFile] = useState(null);
   const user = auth.currentUser;
   const { stores, dispatch } = useContext(StoreContext);
+  const [file, setFile] = useState(null);
 
   const handleFileChange = async (file) => {
     setFile(file);
