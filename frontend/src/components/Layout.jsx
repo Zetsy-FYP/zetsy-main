@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { Navigate } from "react-router-dom";
