@@ -23,7 +23,7 @@ export default function Dashboard() {
         const data = await response.json();
 
         if (data.length === 0) {
-          localStorage.setItem("zetsy_store_state", false)
+          localStorage.setItem("zetsy_store_state", false);
         } else {
           dispatch({
             type: "ADD_STORE",
@@ -38,6 +38,7 @@ export default function Dashboard() {
 
     fetchStores();
   }, []);
+  console.log(selected);
 
   return (
     <main className="flex flex-row align-top">
@@ -66,7 +67,9 @@ export default function Dashboard() {
           <div>Zetsy</div>
           <div className="flex flex-row gap-2">
             <button
-              onClick={() => window.open(`https://${selected.storeUrl}`, "_blank")}
+              onClick={() =>
+                window.open(`https://${selected.storeUrl}`, "_blank")
+              }
             >
               Go to your site
             </button>
